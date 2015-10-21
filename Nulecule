@@ -1,22 +1,17 @@
 ---
 specversion: 0.0.2
-id: helloapache-app
+id: mlbparks-app
 
 metadata:
-  name: Hello Apache App
+  name: Map Major League Baseball Parks App
   appversion: 0.0.1
-  description: Atomic app for deploying a really basic Apache HTTP server
+  description: Atomic app to map Major League baseball parks
 graph:
-  - name: helloapache-app
-    params:
-      - name: image
-        description: The webserver image
-        default: centos/httpd
-      - name: hostport
-        description: The host TCP port as the external endpoint
-        default: 80
+  - name: mlbparks-app
     artifacts:
-      docker:
-        - file://artifacts/docker/hello-apache-pod_run
-      kubernetes:
-        - file://artifacts/kubernetes/hello-apache-pod.json
+      #docker:
+      #  - file://artifacts/docker/hello-apache-pod_run
+      #kubernetes:
+      #  - file://artifacts/kubernetes/hello-apache-pod.json
+      openshift:
+        - file://mlbparks-template.json
