@@ -1,0 +1,189 @@
+{
+   "kind": "Template",
+	 "apiVersion": "v1",
+	 "metadata": {
+			"name": "mlbparks-mongodb",
+			"description": "Database for the MLB Parks application"
+	 },
+	 "labels": {
+			"template": "mlbparks-mongodb"
+	 },
+	 "parameters": [
+			{
+				 "description": "The name for the application.",
+				 "name": "APPLICATION_NAME",
+				 "value": "mlbparks"
+			},
+      {
+         "description": "Database name",
+         "name": "MONGODB_DATABASE",
+         "value": "root"
+      },
+      {
+         "description": "Disable data file preallocation.",
+         "name": "MONGODB_NOPREALLOC"
+      },
+      {
+         "description": "Set MongoDB to use a smaller default data file size.",
+         "name": "MONGODB_SMALLFILES"
+      },
+      {
+         "description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output.",
+         "name": "MONGODB_QUIET"
+      },
+      {
+         "description": "Database user name",
+         "name": "MONGODB_USER",
+         "from": "user[a-zA-Z0-9]{3}",
+         "generate": "expression"
+      },
+      {
+         "description": "Database user password",
+         "name": "MONGODB_PASSWORD",
+         "from": "[a-zA-Z0-9]{8}",
+         "generate": "expression"
+      },
+      {
+         "description": "Database admin password",
+         "name": "MONGODB_ADMIN_PASSWORD",
+         "from": "[a-zA-Z0-9]{8}",
+         "generate": "expression"
+      }
+	 ],
+	 "objects": [
+			{
+				 "kind": "DeploymentConfig",
+				 "apiVersion": "v1",
+				 "metadata": {
+						"name": "${APPLICATION_NAME}-mongodb",
+						"labels": {
+							 "application": "${APPLICATION_NAME}"
+						}
+				 },
+				 "spec": {
+						"strategy": {
+							 "type": "Recreate"
+						},
+						"triggers": [
+							 {
+									"type": "ImageChange",
+									"imageChangeParams": {
+										 "automatic": true,
+										 "containerNames": [
+												"${APPLICATION_NAME}-mongodb"
+										 ],
+										 "from": {
+												"kind": "ImageStreamTag",
+												"namespace": "openshift",
+												"name": "mongodb:latest"
+										 }
+									}
+							 },
+							 {
+									"type": "ConfigChange"
+							 }
+						],
+						"replicas": 1,
+						"selector": {
+							 "deploymentConfig": "${APPLICATION_NAME}-mongodb"
+						},
+						"template": {
+							 "metadata": {
+									"name": "${APPLICATION_NAME}-mongodb",
+									"labels": {
+										 "deploymentConfig": "${APPLICATION_NAME}-mongodb",
+										 "application": "${APPLICATION_NAME}"
+									}
+							 },
+							 "spec": {
+									"volumes": [
+										 {
+												"name": "${APPLICATION_NAME}-mongodb-data",
+												"emptyDir": {}
+										 }
+									],
+									"containers": [
+										 {
+												"name": "${APPLICATION_NAME}-mongodb",
+												"image": "mongodb",
+												"ports": [
+													 {
+															"containerPort": 27017,
+															"protocol": "TCP"
+													 }
+												],
+												"env": [
+													 {
+															"name": "MONGODB_USER",
+															"value": "${MONGODB_USER}"
+													 },
+													 {
+															"name": "MONGODB_PASSWORD",
+															"value": "${MONGODB_PASSWORD}"
+													 },
+													 {
+															"name": "MONGODB_DATABASE",
+															"value": "${MONGODB_DATABASE}"
+													 },
+													 {
+															"name": "MONGODB_ADMIN_PASSWORD",
+															"value": "${MONGODB_ADMIN_PASSWORD}"
+													 },
+													 {
+															"name": "MONGODB_NOPREALLOC",
+															"value": "${MONGODB_NOPREALLOC}"
+													 },
+													 {
+															"name": "MONGODB_SMALLFILES",
+															"value": "${MONGODB_SMALLFILES}"
+													 },
+													 {
+															"name": "MONGODB_QUIET",
+															"value": "${MONGODB_QUIET}"
+													 }
+												],
+												"resources": {},
+												"volumeMounts": [
+													 {
+															"name": "${APPLICATION_NAME}-mongodb-data",
+															"mountPath": "/var/lib/mongodb/data"
+													 }
+												],
+												"terminationMessagePath": "/dev/termination-log",
+												"imagePullPolicy": "IfNotPresent",
+												"securityContext": {
+													 "capabilities": {},
+													 "privileged": false
+												}
+										 }
+									],
+									"restartPolicy": "Always",
+									"dnsPolicy": "ClusterFirst"
+							 }
+						}
+				 }
+			},
+			
+			{
+				 "kind": "Service",
+         "apiVersion": "v1",
+         "metadata": {
+            "name": "mongodb",
+            "labels": {
+               "application": "${APPLICATION_NAME}"
+            }
+         },
+         "spec": {
+            "ports": [
+               {
+                  "port": 27017,
+                  "targetPort": 27017
+               }
+            ],
+            "selector": {
+               "deploymentConfig": "${APPLICATION_NAME}-mongodb"
+            }
+         }
+      }			
+	 ]
+}
