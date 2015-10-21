@@ -1,0 +1,21 @@
+= MLB Parks Map Demo
+
+== Setup
+
+
+
+=== OpenShift
+
+You will need the OpenShift Client binary application	`oc`.  If it is
+not installed on your system you can get binary builds from the
+OpenShift Github repository:
+https://github.com/openshift/origin/releases/
+
+	`oc login <openshift API URL>`
+
+For systems with a single-signon you may also need to get a login
+token. If so, the `oc` command output will contain instructions.
+
+You'll also need to note the location of your provider
+configuration. For Kubernetes or OpenShift the default will be
+`${HOME}/.kube/config`
