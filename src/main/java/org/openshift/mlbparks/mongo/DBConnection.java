@@ -45,7 +45,7 @@ public class DBConnection {
 		Mongo mongo = null;
 		try {
 			mongo = new Mongo(mongoHost, port);
-			System.out.println("Connected to database");
+			System.out.println("Connected to database: " + mongoHost + ":" + mongoPort + " db name: " + mongoDBName );
 		} catch (UnknownHostException e) {
 			System.out.println("Couldn't connect to MongoDB: " + e.getMessage() + " :: " + e.getClass());
 		}
