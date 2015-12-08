@@ -8,6 +8,20 @@ metadata:
   description: Atomic app to map Major League baseball parks
 graph:
   - name: mlbparks-app
+    params:
+        - name: app_application_name
+          description: APPLICATION_NAME
+          default: "mlbparks"
+        - name: app_mongodb_user
+          description: MONGODB_USER
+          default: ""
+        - name: app_mongodb_admin_password
+          description: MONGODB_ADMIN_PASSWORD
+          default: ""
+        - name: app_mongodb_database
+          description: MONGODB_DATABASE
+          default: "root"
+    
     artifacts:
       #docker:
       #  - file://artifacts/docker/hello-apache-pod_run

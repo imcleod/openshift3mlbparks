@@ -35,13 +35,15 @@
          "description": "Database user name",
          "name": "MONGODB_USER",
          "from": "user[a-zA-Z0-9]{3}",
-         "generate": "expression"
+         "generate": "expression",
+         "value": "$app_mongodb_user"
       },
       {
          "description": "Database user password",
          "name": "MONGODB_PASSWORD",
          "from": "[a-zA-Z0-9]{8}",
-         "generate": "expression"
+         "generate": "expression",
+         "value": "$app_mongodb_password"
       },
       {
          "description": "Database admin password",

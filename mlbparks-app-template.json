@@ -20,7 +20,7 @@
       {
          "description": "The name for the application.",
          "name": "APPLICATION_NAME",
-         "value": "mlbparks"
+         "value": "$app_application_name"
       },
       {
          "description": "Custom hostname for service routes.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
@@ -40,7 +40,7 @@
       {
          "description": "Database name",
          "name": "MONGODB_DATABASE",
-         "value": "root"
+         "value": "$app_mongodb_database"
       },
       {
          "description": "Disable data file preallocation.",
@@ -58,19 +58,22 @@
          "description": "Database user name",
          "name": "MONGODB_USER",
          "from": "user[a-zA-Z0-9]{3}",
-         "generate": "expression"
+         "generate": "expression",
+         "value": "$app_mongodb_user"
       },
       {
          "description": "Database user password",
          "name": "MONGODB_PASSWORD",
          "from": "[a-zA-Z0-9]{8}",
-         "generate": "expression"
+         "generate": "expression",
+         "value": "$app_mongodb_password"
       },
       {
          "description": "Database admin password",
          "name": "MONGODB_ADMIN_PASSWORD",
          "from": "[a-zA-Z0-9]{8}",
-         "generate": "expression"
+         "generate": "expression",
+         "value": "$app_mongodb_admin_password"
       },
       {
          "description": "Github trigger secret",

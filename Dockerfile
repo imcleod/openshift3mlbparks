@@ -1,4 +1,4 @@
-FROM projectatomic/atomicapp:0.1.11
+FROM tomaskral/atomicapp:openshift-api
 
 MAINTAINER Mark Lamourine <markllama@gmail.com>
 
