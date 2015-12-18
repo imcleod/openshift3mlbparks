@@ -23,10 +23,6 @@ graph:
           default: "root"
     
     artifacts:
-      #docker:
-      #  - file://artifacts/docker/hello-apache-pod_run
-      #kubernetes:
-      #  - file://artifacts/kubernetes/hello-apache-pod.json
       openshift:
-        - file://mongodb-template.json
-        - file://mlbparks-app-template.json
+        - file://artifacts/openshift/mongodb-template.json
+        - file://artifacts/openshift/mlbparks-app-template.json
