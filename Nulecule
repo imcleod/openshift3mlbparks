@@ -24,5 +24,8 @@ graph:
     
     artifacts:
       openshift:
-        - file://artifacts/openshift/mongodb-template.json
         - file://artifacts/openshift/mlbparks-app-template.json
+
+  - name: mongodb-centos7-atomicapp
+    source: docker://projectatomic/mongodb-centos7-atomicapp
+
