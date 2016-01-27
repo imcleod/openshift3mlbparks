@@ -1,4 +1,4 @@
-FROM projectatomic/atomicapp:0.3.0
+FROM projectatomic/atomicapp:0.4.0
 
 MAINTAINER Mark Lamourine <markllama@gmail.com>
 
