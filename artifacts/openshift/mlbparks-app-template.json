@@ -15,7 +15,7 @@
       {
          "description": "EAP Release version, e.g. 6.4, etc.",
          "name": "EAP_RELEASE",
-         "value": "6.4"
+         "value": "latest"
       },
       {
          "description": "The name for the application.",
@@ -130,7 +130,7 @@
                   "from": {
                      "kind": "ImageStreamTag",
                      "namespace": "openshift",
-                     "name": "jboss-eap6-openshift:${EAP_RELEASE}"
+                     "name": "jboss-eap64-openshift:${EAP_RELEASE}"
                   }
                }
             },

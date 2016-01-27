@@ -12,6 +12,9 @@ graph:
         - name: app_application_name
           description: APPLICATION_NAME
           default: "mlbparks"
+        - name: app_mongodb_password
+          description: MONGODB_PASSWORD
+          default: ""
         - name: app_mongodb_user
           description: MONGODB_USER
           default: ""
